@@ -1,0 +1,31 @@
+{
+  "apiVersion": 1,
+  "plugins": [
+    {
+      "pluginId": "huajiao",
+      "version": "1.0.0",
+      "changelog": [
+        "1.0.0：首个版本。分类：setting.huajiao.com/config/multi 的 h5_web_tab_setting；房间列表：live.huajiao.com/feed/getLives（guid 签名 + JSONP，offset 分页）；房间详情与开播状态：h.huajiao.com/api/getFeedInfo；取流：HLS(live.pull_m3u8/live.main) 优先、FLV(live.h264_url) 兜底；弹幕：Host.ws 上自建 protobuf/RC4 状态机（握手→登录→进房→心跳），支持文本聊天与进场提示。",
+        "开播判据：花椒所有在播房间都返回 feed.mode=\"video\"，它表示「视频形态直播」而非录播；本版本只用 feed.replay_status 判回放，避免在线房间被误判成录播(2)。",
+        "弹幕消息类型（实测）：type 9=文本聊天（显示）、10=进场（显示）、16=退场（忽略）、30/399/415=礼物（默认关，可在 danmaku.js 顶部开关）、104/235/270/282/290/159=榜单与活动角标（忽略）。",
+        "弹幕端到端已在真实服务上验证（握手/登录/进房/收消息全通）；dev/verify-parser.mjs 用真实抓包夹具做离线回归，无需联网即可守住解析链。"
+      ],
+      "platform": "huajiao",
+      "platformName": "花椒直播",
+      "platformDescription": "花椒直播平台",
+      "zipURL": "https://willrao.github.io/AngelLive-huajiao-plugin/huajiao-1.0.0.zip",
+      "zipURLs": [
+        "https://willrao.github.io/AngelLive-huajiao-plugin/huajiao-1.0.0.zip",
+        "https://cdn.jsdelivr.net/gh/WillRao/AngelLive-huajiao-plugin@main/docs/huajiao-1.0.0.zip",
+        "https://fastly.jsdelivr.net/gh/WillRao/AngelLive-huajiao-plugin@main/docs/huajiao-1.0.0.zip"
+      ],
+      "sha256": "cd00e7ea3d495f2cf888d52addbd93faa9121cb92a046f75eb839e5aff4f1531",
+      "auth": {
+        "required": false,
+        "credentialKinds": [],
+        "supportsStatusCheck": false,
+        "supportsValidation": false
+      }
+    }
+  ]
+}
