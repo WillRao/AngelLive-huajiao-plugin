@@ -19,7 +19,7 @@
         "https://cdn.jsdelivr.net/gh/WillRao/AngelLive-huajiao-plugin@main/docs/huajiao-1.0.0.zip",
         "https://fastly.jsdelivr.net/gh/WillRao/AngelLive-huajiao-plugin@main/docs/huajiao-1.0.0.zip"
       ],
-      "sha256": "cd00e7ea3d495f2cf888d52addbd93faa9121cb92a046f75eb839e5aff4f1531",
+      "sha256": "59dfb8b738ec8a93d28202b553c17de093358f9d3896b52ca74d9632efc80d84",
       "auth": {
         "required": false,
         "credentialKinds": [],
