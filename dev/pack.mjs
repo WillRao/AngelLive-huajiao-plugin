@@ -107,7 +107,16 @@ mkdirSync(outDir, { recursive: true });
 
 const zipName = `${pluginId}-${version}.zip`;
 const zipPath = join(outDir, zipName);
-execFileSync("zip", ["-X", "-q", "-D", zipPath, ...sorted], { cwd: staging });
+
+// 必须锁 TZ=UTC 再调 zip。
+// zip 把 mtime 写进 DOS 时间字段时用的是**本地时间**：同一份源码在 UTC+8 的 Mac 上
+// 写出 01-01-2020 08:00，在 UTC 的 CI runner 上写出 01-01-2020 00:00，6 个字节不同
+// → sha256 就不同 → CI 每次都会产生一次「重新打包」提交，本地重打包后也是脏的。
+// 锁死 UTC 之后，本地和 CI 产出逐字节一致。
+execFileSync("zip", ["-X", "-q", "-D", zipPath, ...sorted], {
+  cwd: staging,
+  env: { ...process.env, TZ: "UTC" }
+});
 
 const zipData = readFileSync(zipPath);
 const sha256 = createHash("sha256").update(zipData).digest("hex");

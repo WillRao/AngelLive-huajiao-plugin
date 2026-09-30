@@ -75,8 +75,14 @@ AngelLive-huajiao-plugin/
 node dev/pack.mjs          # 产出到 docs/，索引里直接是本仓库的 Pages 地址
 ```
 
-打包是**可复现**的（mtime 固定成 2020-01-01 + 文件名排序），同一份源码每次产出同一个
-sha256，所以文档里写的哈希不会因为重打包而失效——CI 和本地跑出来也是一致的。
+打包是**可复现**的：mtime 固定成 2020-01-01、文件名排序、并**强制 `TZ=UTC`** 调用 zip。
+同一份源码每次产出同一个 sha256，所以文档里写的哈希不会因为重打包而失效。
+
+> 最后那个 `TZ=UTC` 不是可选装饰。zip 把 mtime 写进 DOS 时间字段时用的是**本地时间**，
+> 不锁 UTC 的话，同一份源码在 UTC+8 的 Mac 上会写成 `01-01-2020 08:00`、在 UTC 的
+> CI runner 上写成 `01-01-2020 00:00`——只有 6 个字节不同，但 sha256 就变了。
+> 结果是 CI 每次都要产生一次「重新打包」的空提交，本地重打包后 `git status` 也永远是脏的。
+> 锁死之后本地与 CI 逐字节一致（`cmp` 无输出）。
 
 > 如果你 fork 了这个仓库，记得把 `dev/pack.mjs` 顶部的 `PAGES_BASE` 和
 > `MIRROR_TEMPLATES` 里的 `WillRao/AngelLive-huajiao-plugin` 换成你自己的。
