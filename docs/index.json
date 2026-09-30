@@ -3,8 +3,9 @@
   "plugins": [
     {
       "pluginId": "huajiao",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "changelog": [
+        "1.1.0：补齐平台图标。宿主不读 manifest 里的图标字段，而是按固定文件名去「已安装插件目录」找 PNG，因此图标必须打进 zip 的 assets/ 下：assets/live_card_huajiao.png（128×128，iOS tab / tvOS 账号列表 / 索引四个 icon 字段）、assets/mini_live_card_huajiao.png（macOS 侧边栏）、assets/pad_live_card_huajiao.png（iOS/macOS 插件管理列表）、assets/tv_huajiao_big|small[_dark].png（740×444，tvOS 平台页大图与焦点叠标）。图源是花椒官方 App 图标，由 dev/make-icons.py 生成。",
         "1.0.0：首个版本。分类：setting.huajiao.com/config/multi 的 h5_web_tab_setting；房间列表：live.huajiao.com/feed/getLives（guid 签名 + JSONP，offset 分页）；房间详情与开播状态：h.huajiao.com/api/getFeedInfo；取流：HLS(live.pull_m3u8/live.main) 优先、FLV(live.h264_url) 兜底；弹幕：Host.ws 上自建 protobuf/RC4 状态机（握手→登录→进房→心跳），支持文本聊天与进场提示。",
         "开播判据：花椒所有在播房间都返回 feed.mode=\"video\"，它表示「视频形态直播」而非录播；本版本只用 feed.replay_status 判回放，避免在线房间被误判成录播(2)。",
         "弹幕消息类型（实测）：type 9=文本聊天（显示）、10=进场（显示）、16=退场（忽略）、30/399/415=礼物（默认关，可在 danmaku.js 顶部开关）、104/235/270/282/290/159=榜单与活动角标（忽略）。",
@@ -13,13 +14,21 @@
       "platform": "huajiao",
       "platformName": "花椒直播",
       "platformDescription": "花椒直播平台",
-      "zipURL": "https://willrao.github.io/AngelLive-huajiao-plugin/huajiao-1.0.0.zip",
+      "icon": "assets/live_card_huajiao.png",
+      "iosIcon": "assets/live_card_huajiao.png",
+      "macosIcon": "assets/live_card_huajiao.png",
+      "tvosIcon": "assets/live_card_huajiao.png",
+      "tvosBigIcon": "assets/tv_huajiao_big.png",
+      "tvosSmallIcon": "assets/tv_huajiao_small.png",
+      "tvosBigIconDark": "assets/tv_huajiao_big_dark.png",
+      "tvosSmallIconDark": "assets/tv_huajiao_small_dark.png",
+      "zipURL": "https://willrao.github.io/AngelLive-huajiao-plugin/huajiao-1.1.0.zip",
       "zipURLs": [
-        "https://willrao.github.io/AngelLive-huajiao-plugin/huajiao-1.0.0.zip",
-        "https://cdn.jsdelivr.net/gh/WillRao/AngelLive-huajiao-plugin@main/docs/huajiao-1.0.0.zip",
-        "https://fastly.jsdelivr.net/gh/WillRao/AngelLive-huajiao-plugin@main/docs/huajiao-1.0.0.zip"
+        "https://willrao.github.io/AngelLive-huajiao-plugin/huajiao-1.1.0.zip",
+        "https://cdn.jsdelivr.net/gh/WillRao/AngelLive-huajiao-plugin@main/docs/huajiao-1.1.0.zip",
+        "https://fastly.jsdelivr.net/gh/WillRao/AngelLive-huajiao-plugin@main/docs/huajiao-1.1.0.zip"
       ],
-      "sha256": "59dfb8b738ec8a93d28202b553c17de093358f9d3896b52ca74d9632efc80d84",
+      "sha256": "8e54866ba6b1fa2bd4dc674081596aa49550ed46130b4056f2a4252599c6b779",
       "auth": {
         "required": false,
         "credentialKinds": [],

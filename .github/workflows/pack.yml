@@ -34,6 +34,13 @@ jobs:
       - name: 重新打包
         run: node dev/pack.mjs
 
+      - name: 校验可复现（重跑一次应逐字节一致）
+        run: |
+          shasum -a 256 docs/huajiao-*.zip | awk '{print $1}' > /tmp/first.txt
+          node dev/pack.mjs > /dev/null
+          shasum -a 256 docs/huajiao-*.zip | awk '{print $1}' > /tmp/second.txt
+          diff /tmp/first.txt /tmp/second.txt && echo "打包可复现 ✅"
+
       - name: 提交产物
         run: |
           git config user.name "github-actions[bot]"
